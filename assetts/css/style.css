@@ -13,9 +13,11 @@ body {
     border-radius: 50%;
 }
 
-.game {
-    justify-content: center;
+.synth {
+    width: 275px;
+    position: relative;
 }
+
 .black-key {
     background-color:rgb(122, 43, 226);
     width: 9%;
@@ -24,31 +26,51 @@ body {
     vertical-align: top;
 }
 #db {
-    position: absolute;
-    left: 13.5%; 
+    position: absolute; 
+    left: 9%; 
 }
 #eb {
-    position: absolute;
-    left: 26.5%;
+    position: absolute; 
+    left: 23.5%;
 }
 #gb {
-    position: absolute;
-    left: 51%;
+    position: absolute; 
+    left: 52.5%;
 }
 #ab {
-    position: absolute;
-    left: 63.5%;
+    position: absolute; 
+    left: 67%;
 }
 #bb {
     position: absolute;
-    left: 76%;
+    left: 81.4%;
 }  
 
 .white-key {
     background-color: whitesmoke;
     width: 13%;
     height: 90px;
-    position: relative;
+}
+#c {
+   left: 0%;
+}
+#d {
+   left: 13%;
+}
+#e {
+   left: 26%;
+}
+#f {
+   left: 39%;
+}
+#g {
+   left: 52%;
+}
+#a {
+   left: 65%;
+}
+#b {
+   left: 78%;
 }
 .effects {
     
