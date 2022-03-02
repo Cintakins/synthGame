@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+body {
+    font-family: Fredoka, san-serif;
+    background-color: black;
+    color: rgb(218, 96, 223);
+}
+
+.game-button{
+    height: 50px;
+    width: 50px;
+    background-color: aqua;
+    border-radius: 50%;
+}
+
+.game {
+    justify-content: center;
+}
+.black-key {
+    background-color:rgb(122, 43, 226);
+    width: 9%;
+    height: 70px;
+    z-index: 1;
+    vertical-align: top;
+}
+#db {
+    position: absolute;
+    left: 13.5%; 
+}
+#eb {
+    position: absolute;
+    left: 26.5%;
+}
+#gb {
+    position: absolute;
+    left: 51%;
+}
+#ab {
+    position: absolute;
+    left: 63.5%;
+}
+#bb {
+    position: absolute;
+    left: 76%;
+}  
+
+.white-key {
+    background-color: whitesmoke;
+    width: 13%;
+    height: 90px;
+    position: relative;
+}
+.effects {
+    
+}
