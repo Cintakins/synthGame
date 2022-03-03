@@ -75,3 +75,220 @@ body {
 .effects {
     
 }
+
+/* media queries */
+
+@media screen and (min-width:370px) {
+    .synth {
+        width: 350px;
+        position: relative;
+    }
+    
+    .black-key {
+        background-color:rgb(122, 43, 226);
+        width: 9%;
+        height: 75px;
+        z-index: 1;
+        vertical-align: top;
+    }
+    #db {
+        position: absolute; 
+        left: 9%; 
+    }
+    #eb {
+        position: absolute; 
+        left: 23%;
+    }
+    #gb {
+        position: absolute; 
+        left: 51.5%;
+    }
+    #ab {
+        position: absolute; 
+        left: 65.5%;
+    }
+    #bb {
+        position: absolute;
+        left: 80%;
+    }  
+    
+    .white-key {
+        background-color: whitesmoke;
+        width: 13%;
+        height: 100px;
+    }
+    #c {
+       left: 0%;
+    }
+    #d {
+       left: 13%;
+    }
+    #e {
+       left: 26%;
+    }
+    #f {
+       left: 39%;
+    }
+    #g {
+       left: 52%;
+    }
+    #a {
+       left: 65%;
+    }
+    #b {
+       left: 78%;
+    }
+    .effects {
+        
+    }
+}
+
+@media screen and (min-width:420px) {
+    .synth {
+        width: 400px;
+        position: relative;
+    }
+    
+    .black-key {
+        background-color:rgb(122, 43, 226);
+        width: 9%;
+        height: 80px;
+        z-index: 1;
+        vertical-align: top;
+    }
+    #db {
+        position: absolute; 
+        left: 9%; 
+    }
+    #eb {
+        position: absolute; 
+        left: 23%;
+    }
+    #gb {
+        position: absolute; 
+        left: 51%;
+    }
+    #ab {
+        position: absolute; 
+        left: 65%;
+    }
+    #bb {
+        position: absolute;
+        left: 79%;
+    }  
+    
+    .white-key {
+        background-color: whitesmoke;
+        width: 13%;
+        height: 110px;
+    }
+    #c {
+       left: 0%;
+    }
+    #d {
+       left: 13%;
+    }
+    #e {
+       left: 26%;
+    }
+    #f {
+       left: 39%;
+    }
+    #g {
+       left: 52%;
+    }
+    #a {
+       left: 65%;
+    }
+    #b {
+       left: 78%;
+    }
+    .effects {
+        
+    }
+}
+
+@media screen and (min-width:768px) {
+    .synth {
+        width: 500px;
+        position: relative;
+    }
+    
+    .black-key {
+        background-color:rgb(122, 43, 226);
+        width: 9%;
+        height: 100px;
+        z-index: 1;
+        vertical-align: top;
+    }
+    #db {
+        position: absolute; 
+        left: 9%; 
+    }
+    #eb {
+        position: absolute; 
+        left: 22.7%;
+    }
+    #gb {
+        position: absolute; 
+        left: 50.2%;
+    }
+    #ab {
+        position: absolute; 
+        left: 64.2%;
+    }
+    #bb {
+        position: absolute;
+        left: 78%;
+    }  
+    
+    .white-key {
+        background-color: whitesmoke;
+        width: 13%;
+        height: 150px;
+    }
+    #c {
+       left: 0%;
+    }
+    #d {
+       left: 13%;
+    }
+    #e {
+       left: 26%;
+    }
+    #f {
+       left: 39%;
+    }
+    #g {
+       left: 52%;
+    }
+    #a {
+       left: 65%;
+    }
+    #b {
+       left: 78%;
+    }
+    .effects {
+        
+    }
+}
+
+@media screen and (min-width:1024px) {
+    
+    .black-key {
+        background-color:rgb(122, 43, 226);
+        width: 9%;
+        height: 140px;
+        z-index: 1;
+        vertical-align: top;
+    }
+    
+    .white-key {
+        background-color: whitesmoke;
+        width: 13%;
+        height: 190px;
+    }
+    .effects {
+        
+    }
+}
