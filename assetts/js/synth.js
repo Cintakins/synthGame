@@ -11,7 +11,7 @@ const now = Tone.now();
 const key = document.getElementsByClassName("key");
 
 for (i = 0; i < key.length; i++){
-    key[i].addEventListener("mousedown", playNote); 
+    key[i].addEventListener("click", playNote); 
 }
 function playNote(event) {
     let note = this.getAttribute("data-note");
