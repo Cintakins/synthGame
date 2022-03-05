@@ -1,4 +1,5 @@
 const synth = new Tone.Synth().toDestination();
+const now = Tone.now();
 
 // linking the sounds to keys
 // var c = document.getElementById('#c');
@@ -10,15 +11,13 @@ const synth = new Tone.Synth().toDestination();
 const key = document.getElementsByClassName("key");
 
 for (i = 0; i < key.length; i++){
-    key[i].addEventListener("onmousedown", playNote) 
+    key[i].addEventListener("mousedown", playNote); 
 }
 function playNote(event) {
-    var note = this.getAttribute("data-note");
-    var whiteKey = this.getElementsByClassName("white-key");
-    var blackKey = this.getElementsByClassName("black-key");
-    if(whiteKey) {
-        synth.triggerAttack(note, "4");
-        this.addEventListener("onmouseup").synth.triggerRelease(note, "4");
-    }
+    let note = this.getAttribute("data-note");
+    synth.triggerAttackRelease(`${note}4`, "8n");
 };
-
+// function stopNote(event) {
+//     let note = document.getAttribute("data-note");
+//     synth.triggerRelease(`${note}4`, now);
+// }
