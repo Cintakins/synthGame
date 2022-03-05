@@ -7,7 +7,12 @@ const synth = new Tone.Synth().toDestination();
 //     synth.triggerAttackRelease('c4', '8n')
 // };
 
-document.getElementsByClassName("key").addEventListener("onmousedown", () => {
+const key = document.getElementsByClassName("key");
+
+for (i = 0; i < key.length; i++){
+    key[i].addEventListener("onmousedown", playNote) 
+}
+function playNote(event) {
     var note = this.getAttribute("data-note");
     var whiteKey = this.getElementsByClassName("white-key");
     var blackKey = this.getElementsByClassName("black-key");
@@ -15,5 +20,5 @@ document.getElementsByClassName("key").addEventListener("onmousedown", () => {
         synth.triggerAttack(note, "4");
         this.addEventListener("onmouseup").synth.triggerRelease(note, "4");
     }
-});
+};
 
