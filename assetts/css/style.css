@@ -13,7 +13,7 @@ body {
 h2 {
     font-family: 'Syne Mono', monospace;
 }
-.game-button{
+.game-button {
     height: 50px;
     width: 50px;
     background-color: aqua;
@@ -22,7 +22,7 @@ h2 {
     margin: auto;
 }
 
-.hame {
+.game {
     margin: auto;
 }
 .synth {

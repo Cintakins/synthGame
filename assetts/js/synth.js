@@ -2,6 +2,15 @@ const synth = new Tone.Synth().toDestination();
 const now = Tone.now();
 
 var key = document.getElementsByClassName("key");
+var notes = [c, db, d, eb, e, f, gb, g, ab, a, bb, b];
+
+let play = document.getElementsByClassName("game-button");
+play[0].addEventListener("click", randomNote);
+
+function randomNote(event){
+    let random = Math.floor(Math.random() * 12) + 1;
+    console.log(random);
+}
 
 for (i = 0; i < key.length; i++){
     key[i].addEventListener("mousedown", playNote); 
