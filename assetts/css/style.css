@@ -13,6 +13,10 @@ body {
 h2 {
     font-family: 'Syne Mono', monospace;
 }
+
+#play-heading {
+    text-align: center;
+}
 .game-button {
     height: 50px;
     width: 50px;

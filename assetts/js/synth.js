@@ -5,7 +5,6 @@ const now = Tone.now();
 
 // Adding variables
 var key = document.getElementsByClassName("key");
-// var notes = [c, db, d, eb, e, f, gb, g, ab, a, bb, b];
 var tones = [];
 for (i = 0; i < key.length; i++){
     let dataNote = key[i].getAttribute("data-note");
