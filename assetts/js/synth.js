@@ -18,10 +18,17 @@ let play = document.getElementsByClassName("game-button");
 play[0].addEventListener("click", randomNote);
 
 function randomNote(event){
+    resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random()*tones.length))];
-    console.log(currentRandomNote);
+    console.log(currentRandomNote, "created");
     synth.triggerAttackRelease(`${currentRandomNote}4`, "8n");
-    this.setTimout(), 5000;
+    setTimeout(resetRandomNote, 5000);
+}
+
+//function to enable play to play keys without red and green colors after practicing on the game has finished
+function resetRandomNote() {
+        currentRandomNote = undefined;   
+        console.log("play button reset")
 }
 
 // Creating functions for the synth keys (play notes and change colours)
@@ -31,24 +38,25 @@ for (i = 0; i < key.length; i++){
 
 // playNote function (starts tone, changes colours and listens for mousup event)
 function playNote() {
-    console.log("play note");
     Tone.start;
     let note = this.getAttribute("data-note");
-    synth.triggerAttack(`${note}4`, now);
-    if (this.classList.contains("white-key")) {
-        console.log("white Key");
-    }
-    else {
-        console.log("black key")
-    }
     if (currentRandomNote) {
         let correctNote = currentRandomNote === note;
+        synth.triggerAttack(`${note}4`, now);
+        console.log("played game")
         this.style.background = correctNote ? "green" : "red" 
-    }
-    else {
+        this.addEventListener("mouseup", () => {
+            synth.triggerRelease(now);
+            this.style.background = this.classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
+            correctNote ? alert("Well done you got it right!") : alert("Whoops! Keep practicing!")
+            resetRandomNote();
+        })
+    } else {
+        synth.triggerAttack(`${note}4`, now);
+        console.log("played synth without game")
         this.style.background = this.classList.contains("white-key") ? "aqua" : "rgb(218, 96, 223)"
+        this.addEventListener("mouseup", stopNote); 
     }
-    this.addEventListener("mouseup", stopNote); 
 };
 
 // stopNote function stops the tone and reverts keys back to original colour
