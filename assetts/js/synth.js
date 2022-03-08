@@ -6,6 +6,8 @@ const now = Tone.now();
 // Adding variables
 var key = document.getElementsByClassName("key");
 var tones = [];
+let currentRandomNote = '';
+currentPlayNote = '';
 for (i = 0; i < key.length; i++){
     let dataNote = key[i].getAttribute("data-note");
     tones.push(dataNote);
@@ -16,9 +18,10 @@ let play = document.getElementsByClassName("game-button");
 play[0].addEventListener("click", randomNote);
 
 function randomNote(event){
-    let randomNote = tones[Math.floor((Math.random()*tones.length))];
-    console.log(randomNote);
-    synth.triggerAttackRelease(`${randomNote}4`, "8n");
+    currentRandomNote = tones[Math.floor((Math.random()*tones.length))];
+    console.log(currentRandomNote);
+    synth.triggerAttackRelease(`${currentRandomNote}4`, "8n");
+    this.setTimout(document.write(currentRandomNote)), 5000;
 }
 
 // Creating functions for the synth keys (play notes and change colours)
@@ -27,7 +30,7 @@ for (i = 0; i < key.length; i++){
 }
 
 // playNote function (starts tone, changes colours and listens for mousup event)
-function playNote(event) {
+function playNote() {
     console.log("play note");
     Tone.start;
     let note = this.getAttribute("data-note");
@@ -38,7 +41,13 @@ function playNote(event) {
     else {
         console.log("black key")
     }
-    this.style.background = this.classList.contains("white-key") ? "aqua" : "rgb(218, 96, 223)"
+    if (currentRandomNote) {
+        let correctNote = currentRandomNote === note;
+        this.style.background = correctNote ? "green" : "red" 
+    }
+    else {
+        this.style.background = this.classList.contains("white-key") ? "aqua" : "rgb(218, 96, 223)"
+    }
     this.addEventListener("mouseup", stopNote); 
 };
 
