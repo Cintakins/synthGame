@@ -21,7 +21,7 @@ function randomNote(event){
     currentRandomNote = tones[Math.floor((Math.random()*tones.length))];
     console.log(currentRandomNote);
     synth.triggerAttackRelease(`${currentRandomNote}4`, "8n");
-    this.setTimout(document.write(currentRandomNote)), 5000;
+    this.setTimout(), 5000;
 }
 
 // Creating functions for the synth keys (play notes and change colours)
