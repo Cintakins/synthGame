@@ -21,8 +21,7 @@ function randomNote(event){
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random()*tones.length))];
     console.log(currentRandomNote, "created");
-    synth.triggerAttackRelease(`${currentRandomNote}4`, "8n");
-    setTimeout(resetRandomNote, 5000);
+    synth.triggerAttackRelease(`${currentRandomNote}4`, "8n"); 
 }
 
 //function to enable play to play keys without red and green colors after practicing on the game has finished
@@ -44,14 +43,27 @@ function playNote() {
         let correctNote = currentRandomNote === note;
         synth.triggerAttack(`${note}4`, now);
         console.log("played game")
-        this.style.background = correctNote ? "green" : "red" 
+        if (correctNote) {
+            this.style.background = "green"
+        } else {
+            document.getElementById(`${note}`).style.background = "red";
+            document.getElementById(`${currentRandomNote}`).style.background = "green";
+            setTimeout(() => {
+                document.getElementById(`${currentRandomNote}`).style.background = document.getElementById(`${currentRandomNote}`).classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
+                resetRandomNote();
+            }, 1500);
+        }
+        // this.style.background = correctNote ? "green" : "red" 
         this.addEventListener("mouseup", () => {
             synth.triggerRelease(now);
             this.style.background = this.classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
-            correctNote ? alert("Well done you got it right!") : alert("Whoops! Keep practicing!")
-            resetRandomNote();
-        })
-    } else {
+        //     setTimeout(function() {
+        //         correctNote ? alert("Well done you got it right!") : alert("Whoops! Keep practicing!")
+        //         resetRandomNote();
+        // }, 250);
+        });
+    }
+     else {
         synth.triggerAttack(`${note}4`, now);
         console.log("played synth without game")
         this.style.background = this.classList.contains("white-key") ? "aqua" : "rgb(218, 96, 223)"

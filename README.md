@@ -24,3 +24,5 @@ Audio parameters:
 ## Technologies used
 ## Languages
 ## Frameworks, Libraries and Programs
+## Bugs and problems
+Struggled to organise the colour changes; 1. for when the player is clicking on keys without playing the game. 2. to show the play the correct and incorrect keys when playing the game. Often the keys reverted back to the wrong colour. Found that using "this" was causing the problems and had to use more specific lines of code which were much longer.
