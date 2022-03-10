@@ -112,7 +112,6 @@ h2 {
 #advert1 {
     height: 200px;
     width: 300px;
-    display: inline-block;
 }
 .advert {
     text-align: center;
@@ -253,11 +252,20 @@ h2 {
         height: 170px;
     }
     #effects {
-        margin-right: 50%;
+        margin-right: 0;
         margin-left: auto;
         width: 300px;
         border: 2px;
         border-color: rgb(122, 43, 226);
+        display: table;
+        float: left;
+    }
+    #advert1 {
+        height: 200px;
+        width: 300px;
+        margin-left: 0;
+        margin-right: auto;
+        display: table;
     }
 }
 
@@ -332,3 +340,4 @@ h2 {
         position: absolute;
         left: 79.3%;
     } 
+}
