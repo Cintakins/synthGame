@@ -242,6 +242,7 @@ h2 {
     }
 }
 
+/* tablet screen size */
 @media screen and (min-width:768px) {
     .synth {
         width: 500px;
