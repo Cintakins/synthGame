@@ -50,7 +50,7 @@ function playNote() {
             document.getElementById(`${currentRandomNote}`).style.background = "green";
             setTimeout(() => {
                 document.getElementById(`${currentRandomNote}`).style.background = document.getElementById(`${currentRandomNote}`).classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
-                resetRandomNote();
+                // resetRandomNote();
             }, 1500);
         }
         // this.style.background = correctNote ? "green" : "red" 
