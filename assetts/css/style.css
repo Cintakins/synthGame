@@ -107,6 +107,8 @@ h2 {
 .advert {
     text-align: center;
     height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 /* media queries */
 
@@ -170,7 +172,7 @@ h2 {
     #b {
        left: 78%;
     }
-    .effects {
+    #effects {
         
     }
 }
