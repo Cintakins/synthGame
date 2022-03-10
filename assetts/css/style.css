@@ -102,11 +102,21 @@ h2 {
    text-align: center;
 }
 #effects {
-    height: 150px;
+    height: 200px;
+}
+
+#dropdownMenuButton1 {
+    display: block;
+    margin: auto;
+}
+#advert1 {
+    height: 200px;
+    width: 300px;
+    display: inline-block;
 }
 .advert {
     text-align: center;
-    height: 100px;
+    height: 150px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -116,6 +126,7 @@ h2 {
     .synth {
         width: 350px;
         position: relative;
+        padding-left: 3%;
     }
     
     .black-key {
@@ -127,23 +138,23 @@ h2 {
     }
     #db {
         position: absolute; 
-        left: 9%; 
+        left: 11.4%; 
     }
     #eb {
         position: absolute; 
-        left: 23%;
+        left: 25%;
     }
     #gb {
         position: absolute; 
-        left: 51.5%;
+        left: 52.5%;
     }
     #ab {
         position: absolute; 
-        left: 65.5%;
+        left: 66.5%;
     }
     #bb {
         position: absolute;
-        left: 80%;
+        left: 80.4%;
     }  
     
     .white-key {
@@ -151,27 +162,7 @@ h2 {
         width: 13%;
         height: 100px;
     }
-    #c {
-       left: 0%;
-    }
-    #d {
-       left: 13%;
-    }
-    #e {
-       left: 26%;
-    }
-    #f {
-       left: 39%;
-    }
-    #g {
-       left: 52%;
-    }
-    #a {
-       left: 65%;
-    }
-    #b {
-       left: 78%;
-    }
+
     #effects {
         
     }
@@ -192,50 +183,29 @@ h2 {
     }
     #db {
         position: absolute; 
-        left: 9%; 
+        left: 12%; 
     }
     #eb {
         position: absolute; 
-        left: 23%;
+        left: 25.5%;
     }
     #gb {
         position: absolute; 
-        left: 51%;
+        left: 52.6%;
     }
     #ab {
         position: absolute; 
-        left: 65%;
+        left: 66.1%;
     }
     #bb {
         position: absolute;
-        left: 79%;
+        left: 79.6%;
     }  
     
     .white-key {
         background-color: whitesmoke;
         width: 13%;
         height: 120px;
-    }
-    #c {
-       left: 0%;
-    }
-    #d {
-       left: 13%;
-    }
-    #e {
-       left: 26%;
-    }
-    #f {
-       left: 39%;
-    }
-    #g {
-       left: 52%;
-    }
-    #a {
-       left: 65%;
-    }
-    #b {
-       left: 78%;
     }
     .effects {
         
@@ -258,23 +228,23 @@ h2 {
     }
     #db {
         position: absolute; 
-        left: 9%; 
+        left: 12.3%; 
     }
     #eb {
         position: absolute; 
-        left: 22.7%;
+        left: 25.5%;
     }
     #gb {
         position: absolute; 
-        left: 50.2%;
+        left: 52.2%;
     }
     #ab {
         position: absolute; 
-        left: 64.2%;
+        left: 65.4%;
     }
     #bb {
         position: absolute;
-        left: 78%;
+        left: 78.6%;
     }  
     
     .white-key {
@@ -282,29 +252,12 @@ h2 {
         width: 13%;
         height: 170px;
     }
-    #c {
-       left: 0%;
-    }
-    #d {
-       left: 13%;
-    }
-    #e {
-       left: 26%;
-    }
-    #f {
-       left: 39%;
-    }
-    #g {
-       left: 52%;
-    }
-    #a {
-       left: 65%;
-    }
-    #b {
-       left: 78%;
-    }
-    .effects {
-        
+    #effects {
+        margin-right: 50%;
+        margin-left: auto;
+        width: 300px;
+        border: 2px;
+        border-color: rgb(122, 43, 226);
     }
 }
 
@@ -317,6 +270,26 @@ h2 {
         z-index: 1;
         vertical-align: top;
     }
+    #db {
+        position: absolute; 
+        left: 13.5%; 
+    }
+    #eb {
+        position: absolute; 
+        left: 26.7%;
+    }
+    #gb {
+        position: absolute; 
+        left: 52.8%;
+    }
+    #ab {
+        position: absolute; 
+        left: 65.8%;
+    }
+    #bb {
+        position: absolute;
+        left: 78.9%;
+    }  
     
     .white-key {
         background-color: whitesmoke;
