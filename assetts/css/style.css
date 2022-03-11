@@ -103,6 +103,11 @@ h2 {
 }
 #effects {
     height: 200px;
+    width: 290px;
+    margin: auto;
+    border: 3px;
+    border-style: groove;
+    border-color: rgb(122, 43, 226);
 }
 
 #dropdownMenuButton1 {
@@ -110,14 +115,19 @@ h2 {
     margin: auto;
 }
 #advert1 {
-    height: 200px;
-    width: 300px;
+    height: 150px;
+    width: 200px;
+    margin: auto;
+    text-align: center;
 }
 .advert {
     text-align: center;
     height: 150px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+#top-advert1 {
+    display: none;
 }
 /* media queries */
 
@@ -162,9 +172,6 @@ h2 {
         height: 100px;
     }
 
-    #effects {
-        
-    }
 }
 
 @media screen and (min-width:420px) {
@@ -205,9 +212,6 @@ h2 {
         background-color: whitesmoke;
         width: 13%;
         height: 120px;
-    }
-    .effects {
-        
     }
 }
 
@@ -253,24 +257,55 @@ h2 {
     }
     #effects {
         margin-right: 0;
-        margin-left: auto;
+        margin-left: calc(50% - 320px);
         width: 300px;
-        border: 2px;
-        border-color: rgb(122, 43, 226);
-        display: table;
-        float: left;
+        display: block;
+        position: absolute;
     }
     #advert1 {
         height: 200px;
         width: 300px;
-        margin-left: 0;
-        margin-right: auto;
-        display: table;
+        margin-left: auto;
+        margin-right: calc(50% - 320px);
+        text-align: center;
     }
 }
-
-@media screen and (min-width:1024px) {
-    
+/* Computer screen size */
+@media screen and (min-width:1100px) {
+    #advert1 {
+        display: none;
+    }
+.game-name {
+    position: absolute;
+    width: 500px;
+    height: 145px;
+    top: -10px;
+}
+#title {
+    margin-top: 50px;
+}
+ #top-advert1 {
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    margin-left: calc(98% - 300px);
+    margin-top: 20px;
+    margin-right: auto;
+    text-align: center;
+ }
+    #effects {
+        position: relative;
+        margin-right: 15px;
+        margin-left: auto;
+        margin-top: 5px;
+        margin-bottom: 115px;
+        width: 300px;
+        display: block;
+    }
+    .game {
+        position: absolute;
+        top: 130px;
+    }
     .black-key {
         background-color:rgb(122, 43, 226);
         width: 9%;
@@ -304,12 +339,22 @@ h2 {
         width: 13%;
         height: 180px;
     }
-    .effects {
-        
-    }
 }
 
 @media screen and (min-width:1199px) {
+    #effects {
+        margin-bottom: 13%;
+        margin-left: 70%;
+        margin-right: auto;
+        margin-top: 75px;
+    }
+    #title {
+        margin-left: 25%;
+        margin-top: 80px;
+    }
+    .game {
+        top: 200px;
+    }
     .synth {
         padding-left: 33px;
     }
