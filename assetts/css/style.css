@@ -221,7 +221,9 @@ h2 {
         width: 500px;
         position: relative;
     }
-    
+    #play-heading {
+        font-size: 90%;
+    }
     .black-key {
         background-color:rgb(122, 43, 226);
         width: 9%;
@@ -275,23 +277,26 @@ h2 {
     #advert1 {
         display: none;
     }
-.game-name {
-    position: absolute;
-    width: 500px;
-    height: 145px;
-    top: -10px;
+    .game-name {
+        position: absolute;
+        width: 500px;
+        height: 145px;
+       top: -10px;
 }
-#title {
-    margin-top: 50px;
+    #title {
+        margin-top: 50px;
 }
- #top-advert1 {
-    display: inline-block;
-    width: 300px;
-    height: 200px;
-    margin-left: calc(98% - 300px);
-    margin-top: 20px;
-    margin-right: auto;
-    text-align: center;
+    #play-heading {
+        font-size: 100%;
+}
+    #top-advert1 {
+        display: inline-block;
+        width: 300px;
+        height: 200px;
+        margin-left: calc(98% - 300px);
+        margin-top: 20px;
+        margin-right: auto;
+        text-align: center;
  }
     #effects {
         position: relative;

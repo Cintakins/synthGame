@@ -8,6 +8,7 @@ var key = document.getElementsByClassName("key");
 var tones = [];
 let currentRandomNote = '';
 let note = '';
+let keyPlayed = '';
 // let synthKey = '';
 for (i = 0; i < key.length; i++){
     let dataNote = key[i].getAttribute("data-note");
@@ -41,83 +42,85 @@ function playNote() {
     Tone.start;
     var note = this.getAttribute("data-note");
     if (currentRandomNote) {
-        playGame(note, currentRandomNote);
+        // synth.triggerAttack(`${note}4`, now);
+        playGame(note);
     }
      else {
         synth.triggerAttack(`${note}4`, now);
-        console.log("played synth without game")
-        this.style.background = this.classList.contains("white-key") ? "aqua" : "rgb(218, 96, 223)"
+        console.log("played synth without game");
+        if (this.classList.contains("white-key")) {
+            this.style.background = "aqua";
+        }
+        else {
+            this.style.background = "rgb(218, 96, 223)";
+        }
         this.addEventListener("mouseup", stopNote); 
     }
 };
 
 // function for playing the game
 function playGame(currentRandomNote, note){
-    let keyPlayed = document.getElementById(`${note}`);
-    let correctNote = currentRandomNote === note;
     synth.triggerAttack(`${note}4`, now);
+    var keyPlayed = document.getElementById(`${note}`);
+
     console.log("played game")
 
-    var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-    function alert(message, type) {
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-        alertPlaceholder.append(wrapper);
-        }
-
-    if (correctNote) {
-        keyPlayed.style.background = "green"
-
-        // function alert(message, type) {
-        //     var wrapper = document.createElement('div');
-        //     wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-        //     alertPlaceholder.append(wrapper);
-        //     }
-        if (correctNote) {
-            this.addEventListener('click', function () {
-            alert('Well done!', 'success');
-            setTimeout(() => {
-            alertPlaceholder.remove();
-        }, 2000)
-        })
+    let correctNote = currentRandomNote === note;  
+    if (correctnote) {
+        alertCorrect();
     }
-    } 
     else {
-        keyPlayed.style.background = "red";
-        document.getElementById(`${currentRandomNote}`).style.background = "green";
-        setTimeout(() => {
-             document.getElementById(`${currentRandomNote}`).style.background = document.getElementById(`${currentRandomNote}`).classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
-            // resetRandomNote();
-        }, 1500);
-            
-        // function alert(message, type) {
-        //     var wrapper = document.createElement('div');
-        //     wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-        //     alertPlaceholder.append(wrapper);
-        //     }
-        if (!correctNote) {
-           this.addEventListener('click', function () {
-            alert('Whoops! Play again', 'danger');
-            setTimeout(() => {
-                 alertPlaceholder.remove();
-            }, 2000)
-        })
-        }
+        alertIncorrect();
     }
-     // this.style.background = correctNote ? "green" : "red" 
-    keyPlayed.addEventListener("mouseup", () => {
-        synth.triggerRelease(now);
-        keyPlayed.style.background = keyPlayed.classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
+    keyPlayed.addEventListener("mouseup", stopNote);
+}
+
+
+// alert messages
+function alertCorrect(message, type) {
+    keyPlayed.style.background = "green";
+    let alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    let wrapper = document.createElement('div');
+    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    alertPlaceholder.append(wrapper);
+
+    this.addEventListener('click', function () {
+        alert('Well done!', 'success');
+        setTimeout(() => {
+            alertPlaceholder.remove();
+        }, 2000);
     });
 }
-// }
+
+function alertIncorrect(message, type) {
+    keyPlayed.style.background = "red";
+    document.getElementById(`${currentRandomNote}`).style.background = "green";
+    let alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    let wrapper = document.createElement('div');
+    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    alertPlaceholder.append(wrapper);
+
+    this.addEventListener('click', function () {
+        alert('Whoops! Play again', 'danger');
+        setTimeout(() => {
+            alertPlaceholder.remove();
+            if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
+                document.getElementById(`${currentRandomNote}`).style.background = "whitesmoke";
+            }
+            else {
+                document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
+            }
+        }, 2000);
+    });
+}
+
 
 // stopNote function stops the tone and reverts keys back to original colour
 function stopNote() {
     console.log("stop note");
     // let note = this.getAttribute("data-note")
     synth.triggerRelease(now);
-    this.style.background = this.classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)"
+    this.style.background = this.classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)";
 }
 
 
