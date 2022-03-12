@@ -57,7 +57,7 @@ function playNote() {
         }
 
         console.log("played synth without game");
-        this.addEventListener("mouseup", stopNote); 
+        this.addEventListener("mouseup", stopNote(note)); 
         console.log(note);
     }
 
@@ -77,6 +77,9 @@ function playGame(currentRandomNote, note){
         var wrapper = document.createElement('div');
         wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         alertPlaceholder.append(wrapper);
+        setTimeout(function() {
+            wrapper.remove();
+        }, 2000);
         }
 
     // alert message correct
@@ -84,9 +87,6 @@ function playGame(currentRandomNote, note){
         document.getElementById(`${note}`).style.background = "green";
         document.getElementById(`${note}`).addEventListener('click', function () {
             alert('Well done!', 'success');
-            setTimeout(function() {
-                document.getElementsByClassName("alert alert-").remove();
-            }, 2000);
         });
     }
 
@@ -99,7 +99,6 @@ function playGame(currentRandomNote, note){
             document.getElementById(`${note}`).addEventListener('click', function () {
                 alert('Whoops! Play again', 'danger');
                 setTimeout(function() {
-                    document.getElementsByClassName("alert").remove();
                     //resets colour of red incorrect key
                     if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
                         document.getElementById(`${currentRandomNote}`).style.background = "whitesmoke";
