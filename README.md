@@ -28,3 +28,5 @@ Audio parameters:
 Struggled to organise the colour changes; 1. for when the player is clicking on keys without playing the game. 2. to show the play the correct and incorrect keys when playing the game. Often the keys reverted back to the wrong colour. Found that using "this" was causing the problems and had to use more specific lines of code which were much longer.
 
 I decided to add an alert to congratulate or commiserate the user on their efforts, but this caused problems for playing the synth after without the game function.
+
+One problem was that I was attempting to remove the alert message automatically and accidentally removed the wrong item so that the function to alert again couldn't use the append method on the removed item.  
