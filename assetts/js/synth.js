@@ -34,7 +34,7 @@ function randomNote(event){
 //function to enable player to play keys without red and green colors after practicing on the game has finished
 function resetRandomNote() {
         currentRandomNote = undefined;   
-        console.log("play button reset")
+        console.log("play button reset");
 }
 
 // playNote function (starts tone, changes colours and listens for mousup event)
@@ -63,68 +63,68 @@ function playNote() {
 // function for playing the game
 function playGame(currentRandomNote, note){
     // synth.triggerAttack(`${note}4`, now);
-    
-    // var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-    // var wrapper = document.createElement('div');
-    // wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-    // alertPlaceholder.append(wrapper);
 
     let correctNote = currentRandomNote === note;  
-    if (correctNote) {
-        alertCorrect();
-        this.style.background = "green";
-    }
-    else {
-        alertIncorrect();
-        this.style.background = "red";
-    }
+
+
+    
+    function alert(message, type) {
+    
+        var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+        alertPlaceholder.append(wrapper);
+
+        // alert message correct
+        if (correctNote) {
+            this.style.background = "green";
+            this.addEventListener('click', function () {
+                alert('Well done!', 'success');
+                setTimeout(function() {
+                    document.getElementsByClassName("alert").remove();
+                }, 2000);
+            });
+        }
+
+        // alert message incorrect
+        else if (!correctNote) {
+
+                document.getElementById(`${currentRandomNote}`).style.background = "green";
+                this.style.background = "red";
+        
+                this.addEventListener('click', function () {
+                    alert('Whoops! Play again', 'danger');
+                    setTimeout(function() {
+                        document.getElementsByClassName("alert").remove();
+                        //resets colour of red incorrect key
+                        if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
+                            document.getElementById(`${currentRandomNote}`).style.background = "whitesmoke";
+                        }
+                        else {
+                            document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
+                        }
+                    }, 2000);
+                });
+        }
+        }
+
     this.addEventListener("mouseup", stopNote);
 
     console.log("played game");
 }
 
 
-// alert message correct
-function alertCorrect(message, type) {
-    
-    var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-    alertPlaceholder.append(wrapper);
-
-    this.addEventListener('click', function () {
-        alert('Well done!', 'success');
-        setTimeout(() => {
-            document.getElementsByClassName("alert").remove();
-        }, 2000);
-    });
-}
-
-// alert message incorrect
-function alertIncorrect(message, type) {
-    document.getElementById(`${currentRandomNote}`).style.background = "green";
-
-    this.addEventListener('click', function () {
-        alert('Whoops! Play again', 'danger');
-        setTimeout(() => {
-            document.getElementsByClassName("alert").remove();
-            if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
-                document.getElementById(`${currentRandomNote}`).style.background = "whitesmoke";
-            }
-            else {
-                document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
-            }
-        }, 2000);
-    });
-}
-
-
 // stopNote function stops the tone and reverts keys back to original colour
-function stopNote() {
+function stopNote(note) {
     console.log("stop note");
-    // let note = this.getAttribute("data-note")
     synth.triggerRelease(now);
-    this.style.background = this.classList.contains("white-key") ? "whitesmoke" : "rgb(122, 43, 226)";
+    let keyPlayed = document.getElementById(`${note}`);
+    if (keyPlayed.classList.contains("white-key")) {
+        this.style.background = "whitesmoke";
+    }
+    else { 
+        this.style.background = "rgb(122, 43, 226)";
+    }
     resetRandomNote();
 }
 
