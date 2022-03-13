@@ -1,4 +1,4 @@
-// Adding tone.js synth tot he js file
+// Adding tone.js synth to the js file
 const synth = new Tone.Synth().toDestination();
 const now = Tone.now();
 
@@ -8,7 +8,7 @@ var key = document.getElementsByClassName("key");
 var tones = [];
 let currentRandomNote = '';
 let note = '';
-// let keyPlayed = '';
+let keyPlayed = '';
 
 // puts keys into tones array (I'm not sure this is even necessary...will ask)
 for (i = 0; i < key.length; i++){
@@ -17,8 +17,14 @@ for (i = 0; i < key.length; i++){
 }
 // mousedown or click events
 for (i = 0; i < key.length; i++){
-    key[i].addEventListener("mousedown", playNote);
+    key[i].addEventListener("mousedown", function(event) {
+        Tone.start;
+        // var keyPlayed = this;
+        // var note = this.getAttribute("data-note");
+        playNote(event, note);
+    });
 }
+
 
 let play = document.getElementsByClassName("game-button");
 play[0].addEventListener("click", randomNote);
@@ -38,54 +44,43 @@ function resetRandomNote() {
         console.log("play button reset");
 }
 
-// playNote function (starts tone, changes colours and listens for mousup event)
-function playNote() {
-    Tone.start;
-    // keyplayed = this;
-    var note = this.getAttribute("data-note");
+// playNote function (starts note, changes colours and listens for mousup event)
+function playNote(event, note) {
+    const keyPlayed = event.target;
+    note = keyPlayed.dataset.note;  // this is how you get the data-note
+
     synth.triggerAttack(`${note}4`, now);
 
+    
     if(currentRandomNote) {
-        playGame(currentRandomNote, note);
+        synth.triggerAttack(`${note}4`, now);
     }
     else {
-        if (this.classList.contains("white-key")) {
-            this.style.background = "aqua";
+        if (keyPlayed.classList.contains("white-key")) {
+            keyPlayed.style.background = "aqua";
         }
         else {
-            this.style.background = "rgb(218, 96, 223)";
+            keyPlayed.style.background = "rgb(218, 96, 223)";
         }
 
         console.log("played synth without game");
-        this.addEventListener("mouseup", stopNote(note)); 
+        keyPlayed.addEventListener("mouseup", stopNote(note, keyPlayed)); 
         console.log(note);
     }
 
+    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed)); 
 }
 
 // function for playing the game
-function playGame(currentRandomNote, note){
+function playGame(currentRandomNote, note, keyPlayed){
 
-    console.log(note);
+    // console.log(note);
     let correctNote = currentRandomNote === note;  
-
-
-    
-    function alert(message, type) {
-    
-        var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-        alertPlaceholder.append(wrapper);
-        setTimeout(function() {
-            wrapper.remove();
-        }, 2000);
-        }
-
+    console.log(keyPlayed);
     // alert message correct
     if (correctNote) {
-        document.getElementById(`${note}`).style.background = "green";
-        document.getElementById(`${note}`).addEventListener('click', function () {
+        keyPlayed.style.background = "green";
+        keyPlayed.addEventListener('click', function () {
             alert('Well done!', 'success');
         });
     }
@@ -94,9 +89,9 @@ function playGame(currentRandomNote, note){
     else if (!correctNote) {
 
             document.getElementById(`${currentRandomNote}`).style.background = "green";
-            document.getElementById(`${note}`).style.background ="red";
+            keyPlayed.style.background ="red";
     
-            document.getElementById(`${note}`).addEventListener('click', function () {
+            keyPlayed.addEventListener('click', function () {
                 alert('Whoops! Play again', 'danger');
                 setTimeout(function() {
                     //resets colour of red incorrect key
@@ -110,18 +105,29 @@ function playGame(currentRandomNote, note){
             });
     }   
 
-    this.addEventListener("mouseup", stopNote(note));
+    keyPlayed.addEventListener("mouseup", stopNote(note, keyPlayed));
 
     console.log("played game");
 }
 
+//alert function
+function alert(message, type) {
+    
+    var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    alertPlaceholder.append(wrapper);
+    setTimeout(function() {
+        wrapper.remove();
+    }, 2000);
+}
+
 
 // stopNote function stops the tone and reverts keys back to original colour
-function stopNote(note) {
+function stopNote(note, keyPlayed) {
     console.log("stop note");
     synth.triggerRelease(now);
-    let keyPlayed = document.getElementById(`${note}`);
-    console.log(keyPlayed)
+    console.log(keyPlayed);
     if (keyPlayed.classList.contains("white-key")) {
         keyPlayed.style.background = "whitesmoke";
     }
