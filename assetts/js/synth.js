@@ -139,6 +139,7 @@ function stopNote(note, keyPlayed) {
         keyPlayed.style.background = "rgb(122, 43, 226)";
     }
     resetRandomNote();
+    // keyPlayed.removeEventListener("click", alert);
 }
 
 
