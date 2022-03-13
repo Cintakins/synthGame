@@ -20,7 +20,7 @@ for (i = 0; i < key.length; i++){
     key[i].addEventListener("mousedown", function(event) {
         Tone.start;
         // var keyPlayed = this;
-        // var note = this.getAttribute("data-note");
+        // note = this.getAttribute("data-note");
         playNote(event, note);
     });
 }
@@ -31,6 +31,7 @@ play[0].addEventListener("click", randomNote);
 
 // Creating play button function
 function randomNote(event){
+    Tone.start;
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random()*tones.length))];
     synth.triggerAttackRelease(`${currentRandomNote}4`, "8n"); 
@@ -54,6 +55,7 @@ function playNote(event, note) {
     
     if(currentRandomNote) {
         synth.triggerAttack(`${note}4`, now);
+        playGame(currentRandomNote, note, keyPlayed);
     }
     else {
         if (keyPlayed.classList.contains("white-key")) {
@@ -64,11 +66,23 @@ function playNote(event, note) {
         }
 
         console.log("played synth without game");
-        keyPlayed.addEventListener("mouseup", stopNote(note, keyPlayed)); 
+        keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed)); 
         console.log(note);
     }
 
-    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed)); 
+    // keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed)); 
+}
+
+//alert function
+function alert(message, type) {
+    
+    var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    alertPlaceholder.append(wrapper);
+    setTimeout(function() {
+        wrapper.remove();
+    }, 2000);
 }
 
 // function for playing the game
@@ -103,24 +117,14 @@ function playGame(currentRandomNote, note, keyPlayed){
                     }
                 }, 2000);
             });
+            keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
     }   
 
-    keyPlayed.addEventListener("mouseup", stopNote(note, keyPlayed));
+    // keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
 
     console.log("played game");
 }
 
-//alert function
-function alert(message, type) {
-    
-    var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-    alertPlaceholder.append(wrapper);
-    setTimeout(function() {
-        wrapper.remove();
-    }, 2000);
-}
 
 
 // stopNote function stops the tone and reverts keys back to original colour
