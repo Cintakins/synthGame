@@ -113,7 +113,14 @@ h2 {
 #dropdownMenuButton1 {
     display: block;
     margin: auto;
+    background-color: aqua;
 }
+
+.slidereffects {
+    height: 10px;
+    width: 60px;
+}
+
 #advert1 {
     height: 150px;
     width: 200px;
