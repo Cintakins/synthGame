@@ -29,4 +29,6 @@ Struggled to organise the colour changes; 1. for when the player is clicking on 
 
 I decided to add an alert to congratulate or commiserate the user on their efforts, but this caused problems for playing the synth after without the game function.
 
-One problem was that I was attempting to remove the alert message automatically and accidentally removed the wrong item so that the function to alert again couldn't use the append method on the removed item.  
+One problem was that I was attempting to remove the alert message automatically and accidentally removed the wrong item so that the function to alert again couldn't use the append method on the removed item. 
+
+After that i realised that the value that was supposed to hold the element of the note played (keyPlayed) passing through any information. Everything worked after sorting that issue out, accept the repeating alert problem.

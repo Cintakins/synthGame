@@ -48,8 +48,7 @@ function resetRandomNote() {
 // playNote function (starts note, changes colours and listens for mousup event)
 function playNote(event, note) {
     const keyPlayed = event.target;
-    note = keyPlayed.dataset.note;  // this is how you get the data-note
-
+    note = keyPlayed.dataset.note;  
     synth.triggerAttack(`${note}4`, now);
 
     
@@ -88,15 +87,15 @@ function alert(message, type) {
 // function for playing the game
 function playGame(currentRandomNote, note, keyPlayed){
 
-    // console.log(note);
     let correctNote = currentRandomNote === note;  
     console.log(keyPlayed);
+
     // alert message correct
     if (correctNote) {
         keyPlayed.style.background = "green";
         keyPlayed.addEventListener('click', function () {
             alert('Well done!', 'success');
-        });
+        }, {once: true});
     }
 
     // alert message incorrect
@@ -116,11 +115,11 @@ function playGame(currentRandomNote, note, keyPlayed){
                         document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
                     }
                 }, 2000);
-            });
-            keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
+            }, {once: true});
+            // keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
     }   
 
-    // keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
+    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
 
     console.log("played game");
 }
@@ -139,7 +138,22 @@ function stopNote(note, keyPlayed) {
         keyPlayed.style.background = "rgb(122, 43, 226)";
     }
     resetRandomNote();
-    // keyPlayed.removeEventListener("click", alert);
 }
+
+// //dropdown
+// var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+// var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+//   return new bootstrap.Dropdown(dropdownToggleEl)
+// })
+
+// var slider = new Nexus.Slider('#sliderEffect1');
+// var slider = new Nexus.Slider('#sliderEffect1',{
+//     'size': [120,20],
+//     'mode': 'relative',  // 'relative' or 'absolute'
+//     'min': 0,
+//     'max': 1,
+//     'step': 0,
+//     'value': 0
+// });
 
 
