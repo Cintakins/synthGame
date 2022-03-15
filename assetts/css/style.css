@@ -116,9 +116,15 @@ h2 {
     background-color: aqua;
 }
 
-.slidereffects {
-    height: 10px;
-    width: 60px;
+.slider-effects {
+    display: block;
+    margin: auto;
+}
+rect:nth-child(2) {
+    fill: aqua;
+}
+.slider-effects, circle {
+    fill: aqua;
 }
 
 /* #advert1 {

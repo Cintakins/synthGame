@@ -1,23 +1,49 @@
-// Adding tone.js synth to the js file
-const synth = new Tone.Synth().toDestination();
-const now = Tone.now();
-
-
 // Adding variables
 var key = document.getElementsByClassName("key");
 var tones = [];
 let currentRandomNote = '';
 let note = '';
 let keyPlayed = '';
+let sliderVolume;
 
-// puts keys into tones array (I'm not sure this is even necessary...will ask)
+//Effect sliders from NexusUI
+var volumeSlider = new Nexus.Slider('#slider-effect1',{
+    'size': [120,20],
+    'mode': 'absolute',
+    'min': -20,
+    'max': 0,
+    'step': 1,
+    'value': -10,
+});
+
+volumeSlider.on('change',function(v) {
+    sliderVolume = v;
+    console.log(v);
+  })
+var slider2 = new Nexus.Slider('#slider-effect2',{
+    'size': [120,20],
+    'mode': 'relative',  // 'relative' or 'absolute'
+    'min': 0,
+    'max': 1,
+    'step': 0,
+    'value': 0
+})
+
+// Adding tone.js synth to the js file
+// var vol = new Tone.Volume(-12).toDestination();
+// const synth = new Tone.Synth().connect(vol);
+// const now = Tone.now();
+
+// puts keys into tones array for use in the randomNote function
 for (i = 0; i < key.length; i++) {
     let dataNote = key[i].getAttribute("data-note");
     tones.push(dataNote);
 }
+
+
 // mousedown or click events
 for (i = 0; i < key.length; i++) {
-    key[i].addEventListener("mousedown", function (event) {
+    key[i].addEventListener("mousedown", function (event, sliderVolume) {
         Tone.start();
         playNote(event, note);
     });
@@ -29,6 +55,9 @@ play[0].addEventListener("click", randomNote);
 
 // Creating play button function
 function randomNote(event) {
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+
     Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
@@ -136,11 +165,4 @@ function stopNote(note, keyPlayed) {
     resetRandomNote();
 }
 
-// //dropdown
-// var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-// var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-//   return new bootstrap.Dropdown(dropdownToggleEl)
-// })
 
-var slider = new Nexus.Slider('#sliderEffect1');
-var slider = new Nexus.Slider('#sliderEffect2');
