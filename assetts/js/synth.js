@@ -32,7 +32,7 @@ var slider2 = new Nexus.Slider('#slider-effect2',{
 // Adding tone.js synth to the js file
 // var vol = new Tone.Volume(-12).toDestination();
 // const synth = new Tone.Synth().connect(vol);
-// const now = Tone.now();
+const now = Tone.now();
 
 // puts keys into tones array for use in the randomNote function
 for (i = 0; i < key.length; i++) {
@@ -57,7 +57,7 @@ play[0].addEventListener("click", randomNote);
 function randomNote(event) {
     var vol = new Tone.Volume(sliderVolume).toDestination();
     const synth = new Tone.Synth().connect(vol);
-
+    // const now = Tone.now();
     Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
@@ -74,13 +74,16 @@ function resetRandomNote() {
 
 // playNote function (starts note, changes colours and listens for mousup event)
 function playNote(event, note) {
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
 
 
     if (currentRandomNote) {
         synth.triggerAttack(`${note}4`, now);
-        playGame(currentRandomNote, note, keyPlayed);
+        playGame(currentRandomNote, note, keyPlayed, synth);
     } else {
         if (keyPlayed.classList.contains("white-key")) {
             keyPlayed.style.background = "aqua";
@@ -89,7 +92,7 @@ function playNote(event, note) {
         }
         synth.triggerAttack(`${note}4`, now);
         console.log("played synth without game");
-        keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
+        keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth));
         console.log(note);
     }
 
@@ -109,7 +112,7 @@ function alert(message, type) {
 }
 
 // function for playing the game
-function playGame(currentRandomNote, note, keyPlayed) {
+function playGame(currentRandomNote, note, keyPlayed, synth) {
 
     let correctNote = currentRandomNote === note;
     console.log(keyPlayed);
@@ -145,7 +148,7 @@ function playGame(currentRandomNote, note, keyPlayed) {
         });
     }
 
-    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed));
+    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth));
 
     console.log("played game");
 }
@@ -153,7 +156,7 @@ function playGame(currentRandomNote, note, keyPlayed) {
 
 
 // stopNote function stops the tone and reverts keys back to original colour
-function stopNote(note, keyPlayed) {
+function stopNote(note, keyPlayed, synth) {
     console.log("stop note");
     synth.triggerRelease(now);
     console.log(keyPlayed);
