@@ -30,8 +30,8 @@ var slider2 = new Nexus.Slider('#slider-effect2',{
 })
 
 // Adding tone.js synth to the js file
-//var vol = new Tone.Volume(-12).toDestination();
-//const synth = new Tone.Synth().connect(vol);
+// var vol = new Tone.Volume(-12).toDestination();
+// const synth = new Tone.Synth().connect(vol);
 const now = Tone.now();
 
 // puts keys into tones array for use in the randomNote function
@@ -53,39 +53,20 @@ for (i = 0; i < key.length; i++) {
 let play = document.getElementsByClassName("game-button");
 play[0].addEventListener("click", randomNote);
 
-//effects
-document.getElementById('distortion').addEventListener('click', () => {
-    let synthD = new Tone.FMSynth().connect(dist, vol);
-    console.log("distortion");
-})
-
-
-//synth sounds
-function synthFunction () {
-    var vol = new Tone.Volume(sliderVolume).toDestination();
-    const dist = new Tone.Distortion(0.8);
-    document.getElementById('distortion').addEventListener('click', () => {
-        let synthD = new Tone.FMSynth().connect(dist, vol);
-        console.log("distortion");
-    })
-    if (distortionOn) {
-
-        // const synthD = new Tone.FMSynth().connect(dist, vol);
-        return synthD;
-        // console.log("distortion");
-
-    }
-    else {
-        const synth = new Tone.Synth().connect(vol);
-        // const now = Tone.now();
-        return synth;
-    }
-}
+//synth effects and sounds
+// function synthFunction () {
+//     var vol = new Tone.Volume(sliderVolume).toDestination();
+//     const synth = new Tone.Synth().connect(vol);
+//     const now = Tone.now();
+//     return vol;
+// }
 
 // Creating play button function
 function randomNote(event) {
-    let synth = synthFunction();
-
+    // synthFunction();
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+    // const now = Tone.now();
     Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
@@ -102,7 +83,9 @@ function resetRandomNote() {
 
 // playNote function (starts note, changes colours and listens for mousup event)
 function playNote(event, note) {
-    let synth = synthFunction();
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+    // synthFunction();
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;

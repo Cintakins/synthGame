@@ -122,10 +122,16 @@ h2 {
     margin: auto;
     background-color: aqua;
 }
-
+.effects-label {
+    margin-left: 20px;
+    margin-right: auto;
+    margin-top: 20px;
+}
 .slider-effects {
     display: block;
-    margin: auto;
+    margin-right: calc(50% - 60px); 
+    margin-top: 20px;
+    float: right;
 }
 rect:nth-child(2) {
     fill: aqua;
