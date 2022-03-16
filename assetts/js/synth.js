@@ -5,7 +5,7 @@ let currentRandomNote = '';
 let note = '';
 let keyPlayed = '';
 let sliderVolume;
-let distortionOn = '';
+let effect = ['distortionOn', 'echoOn', 'gradualOn'];
 
 //Effect sliders from NexusUI
 var volumeSlider = new Nexus.Slider('#slider-effect1',{
@@ -49,34 +49,35 @@ for (i = 0; i < key.length; i++) {
         playNote(event, note);
     });
 }
+// document.getElementById('distortion').addEventListener('click', () => {
+//     return effect[0];
+// });
 
 
 let play = document.getElementsByClassName("game-button");
 play[0].addEventListener("click", randomNote);
 
-//effects
-function distortion(event) {
-    let distortionOn = document.getElementById('distortion').clicked == true;
-    if (distortionOn) {
-        console.log(distortion);
-    }
-}
 
 
 //synth sounds
-function synthFunction () {
+function synthFunction (effect) {
+    document.getElementById('distortion').addEventListener('click', () => {
+        return effect[0];
+    });
     var vol = new Tone.Volume(sliderVolume).toDestination();
     const dist = new Tone.Distortion(0.8);
 
-    if (distortionOn) {
+    if (effect === distortionOn) {
 
         const synthD = new Tone.FMSynth().connect(dist, vol);
+        console.log('synthD')
         return synthD;
 
     }
     else {
         const synthN = new Tone.Synth().connect(vol);
         // const now = Tone.now();
+        console.log('synthN')
         return synthN;
     }
 }
