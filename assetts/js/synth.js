@@ -61,9 +61,7 @@ play[0].addEventListener("click", randomNote);
 
 //synth sounds
 function synthFunction (effect) {
-    document.getElementById('distortion').addEventListener('click', () => {
-        return effect[0];
-    });
+
     var vol = new Tone.Volume(sliderVolume).toDestination();
     const dist = new Tone.Distortion(0.8);
 
