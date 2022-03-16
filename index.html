@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ja-synthesizer Game</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- <link href="bootstrap.bundle.min.js / bootstrap.bundle.js"> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assetts/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/nexusui@latest/dist/NexusUI.js"></script>
@@ -15,23 +14,22 @@
     <div class="container game-name">
         <h1 id="title">Ja-Synthesizer</h1>
     </div>
-    <!-- <div id="top-advert1">ad</div> -->
     <div class="container-fluid game">
         <h5 id="play-heading">Press 'Play' and guess the note!</h5>
-        <button type="button" class="game-button">Play</button>
+        <button type="button" class="game-button" aria-labelledby="play-heading">Play</button>
         <div class="synth">
-            <button class="white-key key" id="c" data-note="c">C</button>
-            <button class="black-key key" id="db" data-note="db">C#</button>
-            <button class="white-key key" id="d" data-note="d">D</button>
-            <button class="black-key key" id="eb" data-note="eb">D#</button>
-            <button class="white-key key" id="e" data-note="e">E</button>
-            <button class="white-key key" id="f" data-note="f">F</button>
-            <button class="black-key key" id="gb" data-note="gb">F#</button>
-            <button class="white-key key" id="g" data-note="g">G</button>
-            <button class="black-key key" id="ab" data-note="ab">G#</button>
-            <button class="white-key key" id="a" data-note="a">A</button>
-            <button class="black-key key" id="bb" data-note="bb">A#</button>
-            <button class="white-key key" id="b" data-note="b">B</button>
+            <button type="button" class="white-key key" id="c" data-note="c" aria-label="C">C</button>
+            <button type="button" class="black-key key" id="db" data-note="db" aria-label="C sharp">C#</button>
+            <button type="button" class="white-key key" id="d" data-note="d" aria-label="D">D</button>
+            <button type="button" class="black-key key" id="eb" data-note="eb" aria-label="D sharp">D#</button>
+            <button type="button" class="white-key key" id="e" data-note="e" aria-label="E">E</button>
+            <button type="button" class="white-key key" id="f" data-note="f" aria-label="F">F</button>
+            <button type="button" class="black-key key" id="gb" data-note="gb" aria-label="F sharp">F#</button>
+            <button type="button" class="white-key key" id="g" data-note="g" aria-label="G">G</button>
+            <button type="button" class="black-key key" id="ab" data-note="ab" aria-label="G sharp">G#</button>
+            <button type="button" class="white-key key" id="a" data-note="a" aria-label="A">A</button>
+            <button type="button" class="black-key key" id="bb" data-note="bb" aria-label="A sharp">A#</button>
+            <button type="button" class="white-key key" id="b" data-note="b" aria-label="B">B</button>
         </div>
         <div id="liveAlertPlaceholder"></div>
     </div>
@@ -46,17 +44,12 @@
               <li><a class="dropdown-item" href="#">Big Room</a></li>
               <li><a class="dropdown-item" href="#">Gradual</a></li>
             </ul>
+            <h6>Volume</h6>
             <div class="slider-effects" id="slider-effect1"></div>
+            <h6>Reverb</h6>
             <div class="slider-effects" id="slider-effect2"></div>
         </div>
     </div>
-    <!-- <div id="advert1">
-        ad
-    </div> -->
-    <!-- <div class="row adverts">
-        <div class="col-6 offset-3 col-md-5 offset-md-1 advert">ad</div>
-        <div class="col-6 offset-3 col-md-5 offset-md-0 advert">ad</div>
-    </div> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.38/Tone.js" integrity="sha512-06fghCFOHDF8cucqI4jKWIO0pCo+5F9upQbLxCEzAHruVuQ9rHQaKK4V9k0sZg6ghi0PqRTA81/jJDzFcKwBfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assetts/js/synth.js"></script>
 </body>
