@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function(){
     
 
     if (effectButton.clicked)
-
-    let synth = synthFunction(normal);
+    synthFunction(normal);
+    let synth = effectType;
 })
 
 // Adding tone.js synth to the js file
@@ -108,7 +108,7 @@ function synthFunction() {
 }
 
 // Creating play button function
-function randomNote(event) {
+function randomNote(event, synth) {
     // let synth = synthFunction();
 
     Tone.start();
@@ -126,7 +126,7 @@ function resetRandomNote() {
 }
 
 // playNote function (starts note, changes colours and listens for mousup event)
-function playNote(event, note) {
+function playNote(event, note, synth) {
     // let synth = synthFunction();
 
     const keyPlayed = event.target;
