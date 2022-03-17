@@ -28,89 +28,45 @@ var slider2 = new Nexus.Slider('#slider-effect2',{
     'step': 0,
     'value': 0
 })
-// content loaded function
-document.addEventListener('DOMContentLoaded', function(){
-    const now = Tone.now();
-
-    // puts keys into tones array for use in the randomNote function
-    for (i = 0; i < key.length; i++) {
-        let dataNote = key[i].getAttribute("data-note");
-        tones.push(dataNote);
-    }
-    for (i = 0; i < key.length; i++) {
-        key[i].addEventListener("mousedown", function (event, sliderVolume) {
-            Tone.start();
-            playNote(event, note);
-        });
-    }
-    let play = document.getElementsByClassName("game-button");
-    play[0].addEventListener("click", randomNote);
-
-    let effectButton = document.getElementsByClassName('effect');
-    for (i = 0; i < effectButton.length; i++)
-        effectButton[i].addEventListener('click', synthFunction(effectType));
-
-    let effectType = document.getElementsByClassName('effect').getAttribute('data-effect');
-    
-
-    if (effectButton.clicked)
-    synthFunction(normal);
-    let synth = effectType;
-})
 
 // Adding tone.js synth to the js file
-//var vol = new Tone.Volume(-12).toDestination();
-//const synth = new Tone.Synth().connect(vol);
-// const now = Tone.now();
+// var vol = new Tone.Volume(-12).toDestination();
+// const synth = new Tone.Synth().connect(vol);
+const now = Tone.now();
 
-// // puts keys into tones array for use in the randomNote function
-// for (i = 0; i < key.length; i++) {
-//     let dataNote = key[i].getAttribute("data-note");
-//     tones.push(dataNote);
-// }
-// gets effect type
-// let effectType = document.getElementsByClassName('effect').getAttribute('data-effect');
-
-// mousedown or click events
-// for (i = 0; i < key.length; i++) {
-//     key[i].addEventListener("mousedown", function (event, sliderVolume) {
-//         Tone.start();
-//         playNote(event, note);
-//     });
-// }
-
-
-
-// let play = document.getElementsByClassName("game-button");
-// play[0].addEventListener("click", randomNote);
-
-
-
-//synth sounds
-function synthFunction() {
-
-    var vol = new Tone.Volume(sliderVolume).toDestination();
-    const dist = new Tone.Distortion(0.8);
-
-    if (effectType == distortion) {
-
-        var synth = new Tone.FMSynth().connect(dist, vol);
-        console.log('synthD')
-        return synth;
-
-    }
-    else if(normal){
-        var synth = new Tone.Synth().connect(vol);
-        // const now = Tone.now();
-        console.log('synthN')
-        return synth;
-    }
+// puts keys into tones array for use in the randomNote function
+for (i = 0; i < key.length; i++) {
+    let dataNote = key[i].getAttribute("data-note");
+    tones.push(dataNote);
 }
 
-// Creating play button function
-function randomNote(event, synth) {
-    // let synth = synthFunction();
 
+// mousedown or click events
+for (i = 0; i < key.length; i++) {
+    key[i].addEventListener("mousedown", function (event, sliderVolume) {
+        Tone.start();
+        playNote(event, note);
+    });
+}
+
+
+let play = document.getElementsByClassName("game-button");
+play[0].addEventListener("click", randomNote);
+
+//synth effects and sounds
+// function synthFunction () {
+//     var vol = new Tone.Volume(sliderVolume).toDestination();
+//     const synth = new Tone.Synth().connect(vol);
+//     const now = Tone.now();
+//     return vol;
+// }
+
+// Creating play button function
+function randomNote(event) {
+    // synthFunction();
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+    // const now = Tone.now();
     Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
@@ -126,8 +82,10 @@ function resetRandomNote() {
 }
 
 // playNote function (starts note, changes colours and listens for mousup event)
-function playNote(event, note, synth) {
-    // let synth = synthFunction();
+function playNote(event, note) {
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+    // synthFunction();
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
