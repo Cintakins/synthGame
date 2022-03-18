@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('dropdownMenuButton1').innerHTML = "Distortion";
                     break;
                 case 'gradual':
-                    document.getElementById('dropdownMenuButton1').innerHTML = "Gradual";
+                    document.getElementById('dropdownMenuButton1').innerHTML = "Auto Wah";
                     break;
                 case 'default':
                     document.getElementById('dropdownMenuButton1').innerHTML = "Presets";
@@ -99,17 +99,42 @@ function resetRandomNote() {
 function playNote(event, note) {
     var vol = new Tone.Volume(sliderVolume);
     const pingPong = new Tone.PingPongDelay("4n", 0.2);
+    const autoWah = new Tone.AutoWah(50, 6, -30);
+
     const dist = new Tone.Distortion(0.8);
-    var synth = '';
+
+    var synth = new Tone.Synth().connect(vol).toDestination();
 
     // get effects from dropdown box (change dropdown name in dom-loaded event listener)
     let effectSelection = document.getElementById('dropdownMenuButton1');
     if (effectSelection.innerText === 'Delay') {
-        synth = new Tone.MembraneSynth().chain(pingPong, vol, Tone.Destination);
+        if (currentRandomNote) {
+            synth = new Tone.Synth().connect(vol).toDestination();
+            setTimeout(function () {
+                synth = new Tone.Synth().chain(pingPong, vol, Tone.Destination);
+            }, 2000);
+        } else {
+            synth = new Tone.Synth().chain(pingPong, vol, Tone.Destination);
+        }
     } else if (effectSelection.innerText === 'Distortion') {
-        synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
-    } else if (effectSelection.innerText === 'Gradual') {
-        synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+        if (currentRandomNote) {
+            synth = new Tone.Synth().connect(vol).toDestination();
+            setTimeout(function () {
+                synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+            }, 2000);
+        } else {
+            synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+        }
+    } else if (effectSelection.innerText === 'Auto Wah') {
+        if (currentRandomNote) {
+            synth = new Tone.Synth().connect(vol).toDestination();
+            setTimeout(function () {
+                synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+            }, 2000);
+        } else {
+            synth = new Tone.Synth().chain(autoWah, vol, Tone.Destination);
+        autoWah.Q.value = 9;
+        }
     } else if (effectSelection.innerText === 'Default' || 'Presets') {
         synth = new Tone.Synth().connect(vol).toDestination();
     }
