@@ -20,7 +20,6 @@ var volumeSlider = new Nexus.Slider('#slider-effect1', {
 
 volumeSlider.on('change', function (v) {
     sliderVolume = v;
-    console.log(v);
 })
 var reverbSlider = new Nexus.Slider('#slider-effect2', {
     'size': [120, 20],
@@ -33,10 +32,10 @@ var reverbSlider = new Nexus.Slider('#slider-effect2', {
 
 reverbSlider.on('change', function (v) {
     sliderReverb = v;
-    console.log(v);
 })
 
 document.addEventListener('DOMContentLoaded', function () {
+    Tone.start();
 
     // puts keys into tones array for use in the randomNote function
     for (i = 0; i < key.length; i++) {
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // mousedown or click events
     for (i = 0; i < key.length; i++) {
         key[i].addEventListener("mousedown", function (event) {
-            // Tone.start();
             playNote(event, note);
         });
     }
@@ -87,18 +85,15 @@ function randomNote() {
     var vol = new Tone.Volume(sliderVolume);
     let synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
 
-    Tone.start();
+    // Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
     synth.triggerAttackRelease(`${currentRandomNote}4`, "8n");
-
-    console.log(currentRandomNote, "created");
 }
 
 /** function to enable player to play keys without red and green colors after practicing on the game has finished */
 function resetRandomNote() {
     currentRandomNote = undefined;
-    console.log("play button reset");
 }
 
 /** playNote function (starts note, changes colours, checks effect selections and listens for mouseup event) */
@@ -145,12 +140,10 @@ function playNote(event, note) {
     } else if (effectSelection.innerText === 'Default' || 'Presets') {
         synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
     }
-    // const now = Tone.now();
-    console.log(synth);
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
-    Tone.start();
+    // Tone.start();
 
 
     if (currentRandomNote) {
@@ -163,12 +156,8 @@ function playNote(event, note) {
             keyPlayed.style.background = "rgb(218, 96, 223)";
         }
         synth.triggerAttack(`${note}4`, now);
-        console.log("played synth without game");
         keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth));
-        console.log(note);
     }
-
-    // keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed)); 
 }
 
 /** alert function */
@@ -183,14 +172,10 @@ function alert(message, type) {
     }, 2000);
 }
 
-function furtherInstructions() {
-    // alert("Press Play to play again, or have fun with the synthesizer!", 'info');
-}
 //** function for playing the game */
 function playGame(currentRandomNote, note, keyPlayed, synth) {
 
     let correctNote = currentRandomNote === note;
-    console.log(keyPlayed);
 
     // alert message correct
     if (correctNote) {
@@ -228,17 +213,13 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
     }
 
     keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth, now));
-
-    console.log("played game");
 }
 
 
 
 /** stopNote function stops the tone and reverts keys back to original colour */
 function stopNote(note, keyPlayed, synth, now) {
-    console.log("stop note");
     synth.triggerRelease(now);
-    console.log(note);
     if (keyPlayed.classList.contains("white-key")) {
         keyPlayed.style.background = "whitesmoke";
     } else {
