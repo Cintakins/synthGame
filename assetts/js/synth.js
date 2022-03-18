@@ -5,6 +5,7 @@ let currentRandomNote = '';
 let note = '';
 let keyPlayed = '';
 let sliderVolume;
+const now = Tone.now();
 
 //Effect sliders from NexusUI
 var volumeSlider = new Nexus.Slider('#slider-effect1', {
@@ -30,7 +31,6 @@ var slider2 = new Nexus.Slider('#slider-effect2', {
 })
 
 document.addEventListener('DOMContentLoaded', function () {
-    // const now = Tone.now();
 
     // puts keys into tones array for use in the randomNote function
     for (i = 0; i < key.length; i++) {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // mousedown or click events
     for (i = 0; i < key.length; i++) {
         key[i].addEventListener("mousedown", function (event, sliderVolume) {
-            Tone.start();
+            // Tone.start();
             playNote(event, note);
         });
     }
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let effect = this.getAttribute('data-effect');
             switch (effect) {
                 case 'echo':
-                    document.getElementById('dropdownMenuButton1').innerHTML = "Echo";
+                    document.getElementById('dropdownMenuButton1').innerHTML = "Delay";
                     break;
                 case 'distortion':
                     document.getElementById('dropdownMenuButton1').innerHTML = "Distortion";
@@ -75,40 +75,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-//synth effects and sounds
-function synthFunction() {
-    var vol = new Tone.Volume(sliderVolume).toDestination();
-    const pingPong = new Tone.PingPongDelay("4n", 0.2);
-    const dist = new Tone.Distortion(0.8);
-    let synth = '';
-    const now = Tone.now();
-    
-    // get effects from dropdown box (change dropdown name in dom-loaded event listener)
-    let effectSelection = document.getElementById('dropdownMenuButton1');
-    if (effectSelection.innerHTML === 'Echo') {
-        let synth = new Tone.MembraneSynth().connect(pingPong, vol);
-        return synth;
-    } else if (effectSelection.innerHTML === 'Distortion') {
-        let synth = new Tone.FMSynth().connect(dist, vol);
-        return synth;
-    } else if (effectSelection.innerHTML === 'Gradual') {
-        let synth = new Tone.FMSynth().connect(dist, vol);
-        return synth;
-    } else if ('Default' | 'Presets') {
-        let synth = new Tone.Synth().connect(vol);
-        return synth;
-    }
-    console.log(synth);
-    return synth;
-}
-
-// Creating play button function
+/** Creating play button function */
 function randomNote(event) {
-    let synth = synthFunction();
-    console.log(synth);
-    // var vol = new Tone.Volume(sliderVolume).toDestination();
-    // const synth = new Tone.Synth().connect(vol);
-    // const now = Tone.now();
+
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    let synth = new Tone.Synth().connect(vol);
+
     Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
@@ -117,21 +89,36 @@ function randomNote(event) {
     console.log(currentRandomNote, "created");
 }
 
-//function to enable player to play keys without red and green colors after practicing on the game has finished
+/** function to enable player to play keys without red and green colors after practicing on the game has finished */
 function resetRandomNote() {
     currentRandomNote = undefined;
     console.log("play button reset");
 }
 
-// playNote function (starts note, changes colours and listens for mousup event)
+/** playNote function (starts note, changes colours, checks effect selections and listens for mouseup event) */ 
 function playNote(event, note) {
-    // var vol = new Tone.Volume(sliderVolume).toDestination();
-    // const synth = new Tone.Synth().connect(vol);
-    let synth = synthFunction();
-    const now = Tone.now();
+    var vol = new Tone.Volume(sliderVolume);
+    const pingPong = new Tone.PingPongDelay("4n", 0.2);
+    const dist = new Tone.Distortion(0.8);
+    var synth = '';
+
+    // get effects from dropdown box (change dropdown name in dom-loaded event listener)
+    let effectSelection = document.getElementById('dropdownMenuButton1');
+    if (effectSelection.innerText === 'Delay') {
+        synth = new Tone.MembraneSynth().chain(pingPong, vol, Tone.Destination);
+    } else if (effectSelection.innerText === 'Distortion') {
+        synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+    } else if (effectSelection.innerText === 'Gradual') {
+        synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+    } else if (effectSelection.innerText === 'Default' || 'Presets') {
+        synth = new Tone.Synth().connect(vol).toDestination();
+    }
+    // const now = Tone.now();
+    console.log(synth);
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
+    Tone.start();
 
 
     if (currentRandomNote) {
@@ -152,7 +139,7 @@ function playNote(event, note) {
     // keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed)); 
 }
 
-//alert function
+/** alert function */
 function alert(message, type) {
 
     var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
@@ -164,7 +151,7 @@ function alert(message, type) {
     }, 2000);
 }
 
-// function for playing the game
+//** function for playing the game */
 function playGame(currentRandomNote, note, keyPlayed, synth) {
 
     let correctNote = currentRandomNote === note;
@@ -208,7 +195,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
 
 
 
-// stopNote function stops the tone and reverts keys back to original colour
+/** stopNote function stops the tone and reverts keys back to original colour */
 function stopNote(note, keyPlayed, synth, now) {
     console.log("stop note");
     synth.triggerRelease(now);
