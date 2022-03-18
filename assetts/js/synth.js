@@ -5,6 +5,7 @@ let currentRandomNote = '';
 let note = '';
 let keyPlayed = '';
 let sliderVolume;
+let sliderReverb = 0.1;
 const now = Tone.now();
 
 //Effect sliders from NexusUI
@@ -21,13 +22,18 @@ volumeSlider.on('change', function (v) {
     sliderVolume = v;
     console.log(v);
 })
-var slider2 = new Nexus.Slider('#slider-effect2', {
+var reverbSlider = new Nexus.Slider('#slider-effect2', {
     'size': [120, 20],
-    'mode': 'relative', // 'relative' or 'absolute'
-    'min': 0,
+    'mode': 'absolute',
+    'min': 0.01,
     'max': 1,
-    'step': 0,
-    'value': 0
+    'step': 0.01,
+    'value': 0.01,
+});
+
+reverbSlider.on('change', function (v) {
+    sliderReverb = v;
+    console.log(v);
 })
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -41,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // mousedown or click events
     for (i = 0; i < key.length; i++) {
-        key[i].addEventListener("mousedown", function (event, sliderVolume) {
+        key[i].addEventListener("mousedown", function (event) {
             // Tone.start();
             playNote(event, note);
         });
@@ -76,10 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /** Creating play button function */
-function randomNote(event) {
-
-    var vol = new Tone.Volume(sliderVolume).toDestination();
-    let synth = new Tone.Synth().connect(vol);
+function randomNote() {
+    var reverb = new Tone.Reverb(sliderReverb);
+    var vol = new Tone.Volume(sliderVolume);
+    let synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
 
     Tone.start();
     resetRandomNote();
@@ -100,6 +106,7 @@ function playNote(event, note) {
     var vol = new Tone.Volume(sliderVolume);
     const pingPong = new Tone.PingPongDelay("4n", 0.2);
     const autoWah = new Tone.AutoWah(50, 6, -30);
+    var reverb = new Tone.Reverb(sliderReverb);
 
     const dist = new Tone.Distortion(0.8);
 
@@ -109,34 +116,34 @@ function playNote(event, note) {
     let effectSelection = document.getElementById('dropdownMenuButton1');
     if (effectSelection.innerText === 'Delay') {
         if (currentRandomNote) {
-            synth = new Tone.Synth().connect(vol).toDestination();
+            synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
             setTimeout(function () {
-                synth = new Tone.Synth().chain(pingPong, vol, Tone.Destination);
+                synth = new Tone.Synth().chain(pingPong, vol, reverb, Tone.Destination);
             }, 2000);
         } else {
-            synth = new Tone.Synth().chain(pingPong, vol, Tone.Destination);
+            synth = new Tone.Synth().chain(pingPong, vol, reverb, Tone.Destination);
         }
     } else if (effectSelection.innerText === 'Distortion') {
         if (currentRandomNote) {
-            synth = new Tone.Synth().connect(vol).toDestination();
+            synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
             setTimeout(function () {
-                synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+                synth = new Tone.FMSynth().chain(dist, vol, reverb, Tone.Destination);
             }, 2000);
         } else {
-            synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+            synth = new Tone.FMSynth().chain(dist, vol, reverb, Tone.Destination);
         }
     } else if (effectSelection.innerText === 'Auto Wah') {
         if (currentRandomNote) {
-            synth = new Tone.Synth().connect(vol).toDestination();
+            synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
             setTimeout(function () {
-                synth = new Tone.FMSynth().chain(dist, vol, Tone.Destination);
+                synth = new Tone.FMSynth().chain(dist, vol, reverb, Tone.Destination);
             }, 2000);
         } else {
-            synth = new Tone.Synth().chain(autoWah, vol, Tone.Destination);
+            synth = new Tone.Synth().chain(autoWah, vol, reverb, Tone.Destination);
             autoWah.Q.value = 9;
         }
     } else if (effectSelection.innerText === 'Default' || 'Presets') {
-        synth = new Tone.Synth().connect(vol).toDestination();
+        synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
     }
     // const now = Tone.now();
     console.log(synth);
@@ -177,7 +184,7 @@ function alert(message, type) {
 }
 
 function furtherInstructions() {
-    alert("Press Play to play again, or have fun with the synthesizer!", 'info');
+    // alert("Press Play to play again, or have fun with the synthesizer!", 'info');
 }
 //** function for playing the game */
 function playGame(currentRandomNote, note, keyPlayed, synth) {
@@ -190,6 +197,9 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
         keyPlayed.style.background = "green";
         keyPlayed.addEventListener('click', function () {
             alert('Well done!', 'success');
+            setTimeout(function () {
+                alert("Press Play to play again, or have fun with the synthesizer!", 'info');
+            }, 2000);
         }, {
             once: true
         });
@@ -210,7 +220,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
                 } else {
                     document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
                 }
-                furtherInstructions();
+                alert("Press Play to play again, or have fun with the synthesizer!", 'info');
             }, 2000);
         }, {
             once: true
