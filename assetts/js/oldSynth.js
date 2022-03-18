@@ -54,18 +54,18 @@ let play = document.getElementsByClassName("game-button");
 play[0].addEventListener("click", randomNote);
 
 //synth effects and sounds
-function synthFunction () {
-    var vol = new Tone.Volume(sliderVolume).toDestination();
-    let synth = '';
-    const now = Tone.now();
-    return synth;
-}
+// function synthFunction () {
+//     var vol = new Tone.Volume(sliderVolume).toDestination();
+//     const synth = new Tone.Synth().connect(vol);
+//     const now = Tone.now();
+//     return vol;
+// }
 
 // Creating play button function
 function randomNote(event) {
-    let synth = synthFunction();
-    // var vol = new Tone.Volume(sliderVolume).toDestination();
-    // const synth = new Tone.Synth().connect(vol);
+    // synthFunction();
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
     // const now = Tone.now();
     Tone.start();
     resetRandomNote();
@@ -83,9 +83,9 @@ function resetRandomNote() {
 
 // playNote function (starts note, changes colours and listens for mousup event)
 function playNote(event, note) {
-    // var vol = new Tone.Volume(sliderVolume).toDestination();
-    // const synth = new Tone.Synth().connect(vol);
-    let synth = synthFunction();
+    var vol = new Tone.Volume(sliderVolume).toDestination();
+    const synth = new Tone.Synth().connect(vol);
+    // synthFunction();
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
