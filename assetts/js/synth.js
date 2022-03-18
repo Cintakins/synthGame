@@ -7,8 +7,8 @@ let keyPlayed = '';
 let sliderVolume;
 
 //Effect sliders from NexusUI
-var volumeSlider = new Nexus.Slider('#slider-effect1',{
-    'size': [120,20],
+var volumeSlider = new Nexus.Slider('#slider-effect1', {
+    'size': [120, 20],
     'mode': 'absolute',
     'min': -20,
     'max': 0,
@@ -16,54 +16,96 @@ var volumeSlider = new Nexus.Slider('#slider-effect1',{
     'value': -10,
 });
 
-volumeSlider.on('change',function(v) {
+volumeSlider.on('change', function (v) {
     sliderVolume = v;
     console.log(v);
-  })
-var slider2 = new Nexus.Slider('#slider-effect2',{
-    'size': [120,20],
-    'mode': 'relative',  // 'relative' or 'absolute'
+})
+var slider2 = new Nexus.Slider('#slider-effect2', {
+    'size': [120, 20],
+    'mode': 'relative', // 'relative' or 'absolute'
     'min': 0,
     'max': 1,
     'step': 0,
     'value': 0
 })
 
-// Adding tone.js synth to the js file
-// var vol = new Tone.Volume(-12).toDestination();
-// const synth = new Tone.Synth().connect(vol);
-const now = Tone.now();
+document.addEventListener('DOMContentLoaded', function () {
+    // const now = Tone.now();
 
-// puts keys into tones array for use in the randomNote function
-for (i = 0; i < key.length; i++) {
-    let dataNote = key[i].getAttribute("data-note");
-    tones.push(dataNote);
-}
+    // puts keys into tones array for use in the randomNote function
+    for (i = 0; i < key.length; i++) {
+        let dataNote = key[i].getAttribute("data-note");
+        tones.push(dataNote);
+    }
 
 
-// mousedown or click events
-for (i = 0; i < key.length; i++) {
-    key[i].addEventListener("mousedown", function (event, sliderVolume) {
-        Tone.start();
-        playNote(event, note);
-    });
-}
+    // mousedown or click events
+    for (i = 0; i < key.length; i++) {
+        key[i].addEventListener("mousedown", function (event, sliderVolume) {
+            Tone.start();
+            playNote(event, note);
+        });
+    }
 
 
-let play = document.getElementsByClassName("game-button");
-play[0].addEventListener("click", randomNote);
+    let play = document.getElementsByClassName("game-button");
+    play[0].addEventListener("click", randomNote);
+
+    // adds event listener to effects buttons
+    let effectButton = document.getElementsByClassName('effect');
+    for (i = 0; i < effectButton.length; i++) {
+        effectButton[i].addEventListener('click', function() {
+            let effect = this.getAttribute('data-effect');
+            switch (effect) {
+                case 'echo':
+                    document.getElementById('dropdownMenuButton1').innerHTML = "Echo";
+                    break;
+                case 'distortion':
+                    document.getElementById('dropdownMenuButton1').innerHTML = "Distortion";
+                    break;
+                case 'gradual':
+                    document.getElementById('dropdownMenuButton1').innerHTML = "Gradual";
+                    break;
+                case 'default':
+                    document.getElementById('dropdownMenuButton1').innerHTML = "Presets";
+                    break;
+            }
+        });
+    }
+
+});
 
 //synth effects and sounds
-function synthFunction () {
+function synthFunction() {
     var vol = new Tone.Volume(sliderVolume).toDestination();
+    const pingPong = new Tone.PingPongDelay("4n", 0.2);
+    const dist = new Tone.Distortion(0.8);
     let synth = '';
     const now = Tone.now();
+    
+    // get effects from dropdown box (change dropdown name in dom-loaded event listener)
+    let effectSelection = document.getElementById('dropdownMenuButton1');
+    if (effectSelection.innerHTML === 'Echo') {
+        let synth = new Tone.MembraneSynth().connect(pingPong, vol);
+        return synth;
+    } else if (effectSelection.innerHTML === 'Distortion') {
+        let synth = new Tone.FMSynth().connect(dist, vol);
+        return synth;
+    } else if (effectSelection.innerHTML === 'Gradual') {
+        let synth = new Tone.FMSynth().connect(dist, vol);
+        return synth;
+    } else if ('Default' | 'Presets') {
+        let synth = new Tone.Synth().connect(vol);
+        return synth;
+    }
+    console.log(synth);
     return synth;
 }
 
 // Creating play button function
 function randomNote(event) {
     let synth = synthFunction();
+    console.log(synth);
     // var vol = new Tone.Volume(sliderVolume).toDestination();
     // const synth = new Tone.Synth().connect(vol);
     // const now = Tone.now();
@@ -86,6 +128,7 @@ function playNote(event, note) {
     // var vol = new Tone.Volume(sliderVolume).toDestination();
     // const synth = new Tone.Synth().connect(vol);
     let synth = synthFunction();
+    const now = Tone.now();
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
@@ -158,7 +201,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
         });
     }
 
-    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth));
+    keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth, now));
 
     console.log("played game");
 }
@@ -166,10 +209,10 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
 
 
 // stopNote function stops the tone and reverts keys back to original colour
-function stopNote(note, keyPlayed, synth) {
+function stopNote(note, keyPlayed, synth, now) {
     console.log("stop note");
     synth.triggerRelease(now);
-    console.log(keyPlayed);
+    console.log(note);
     if (keyPlayed.classList.contains("white-key")) {
         keyPlayed.style.background = "whitesmoke";
     } else {
@@ -177,5 +220,3 @@ function stopNote(note, keyPlayed, synth) {
     }
     resetRandomNote();
 }
-
-
