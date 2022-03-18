@@ -165,7 +165,7 @@ function playNote(event, note) {
 }
 
 /** alert function */
-function alert(message, type) {
+function alertBox(message, type) {
 
     var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
     var wrapper = document.createElement('div');
@@ -186,7 +186,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
     if (correctNote) {
         keyPlayed.style.background = "green";
         keyPlayed.addEventListener('click', function () {
-            alert('Well done!', 'success');
+            alertBox('Well done!', 'success');
         }, {
             once: true
         });
@@ -199,7 +199,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
         keyPlayed.style.background = "red";
 
         keyPlayed.addEventListener('click', function () {
-            alert('Whoops! Play again', 'danger');
+            alertBox('Whoops! Play again', 'danger');
             setTimeout(function () {
                 //resets colour of red incorrect key
                 if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
@@ -207,6 +207,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
                 } else {
                     document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
                 }
+                alert("Press Play to play again, or have fun with the synthesizer!");
             }, 2000);
         }, {
             once: true
