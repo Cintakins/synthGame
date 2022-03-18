@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // adds event listener to effects buttons
     let effectButton = document.getElementsByClassName('effect');
     for (i = 0; i < effectButton.length; i++) {
-        effectButton[i].addEventListener('click', function() {
+        effectButton[i].addEventListener('click', function () {
             let effect = this.getAttribute('data-effect');
             switch (effect) {
                 case 'echo':
@@ -95,7 +95,7 @@ function resetRandomNote() {
     console.log("play button reset");
 }
 
-/** playNote function (starts note, changes colours, checks effect selections and listens for mouseup event) */ 
+/** playNote function (starts note, changes colours, checks effect selections and listens for mouseup event) */
 function playNote(event, note) {
     var vol = new Tone.Volume(sliderVolume);
     const pingPong = new Tone.PingPongDelay("4n", 0.2);
@@ -133,7 +133,7 @@ function playNote(event, note) {
             }, 2000);
         } else {
             synth = new Tone.Synth().chain(autoWah, vol, Tone.Destination);
-        autoWah.Q.value = 9;
+            autoWah.Q.value = 9;
         }
     } else if (effectSelection.innerText === 'Default' || 'Presets') {
         synth = new Tone.Synth().connect(vol).toDestination();
@@ -165,7 +165,7 @@ function playNote(event, note) {
 }
 
 /** alert function */
-function alertBox(message, type) {
+function alert(message, type) {
 
     var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
     var wrapper = document.createElement('div');
@@ -176,6 +176,9 @@ function alertBox(message, type) {
     }, 2000);
 }
 
+function furtherInstructions() {
+    alert("Press Play to play again, or have fun with the synthesizer!", 'info');
+}
 //** function for playing the game */
 function playGame(currentRandomNote, note, keyPlayed, synth) {
 
@@ -186,7 +189,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
     if (correctNote) {
         keyPlayed.style.background = "green";
         keyPlayed.addEventListener('click', function () {
-            alertBox('Well done!', 'success');
+            alert('Well done!', 'success');
         }, {
             once: true
         });
@@ -199,7 +202,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
         keyPlayed.style.background = "red";
 
         keyPlayed.addEventListener('click', function () {
-            alertBox('Whoops! Play again', 'danger');
+            alert('Whoops! Play again', 'danger');
             setTimeout(function () {
                 //resets colour of red incorrect key
                 if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
@@ -207,7 +210,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
                 } else {
                     document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
                 }
-                alert("Press Play to play again, or have fun with the synthesizer!");
+                furtherInstructions();
             }, 2000);
         }, {
             once: true
