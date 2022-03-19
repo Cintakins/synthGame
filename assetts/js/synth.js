@@ -13,9 +13,9 @@ var volumeSlider = new Nexus.Slider('#slider-effect1', {
     'size': [120, 20],
     'mode': 'absolute',
     'min': -20,
-    'max': 0,
+    'max': 10,
     'step': 1,
-    'value': -10,
+    'value': -5,
 });
 
 volumeSlider.on('change', function (v) {
