@@ -126,12 +126,14 @@ h2 {
     margin-left: 20px;
     margin-right: auto;
     margin-top: 20px;
+    left: 0;
 }
 .slider-effects {
-    display: block;
+    display: inline-block;
     margin-right: calc(50% - 60px); 
     margin-top: 20px;
     float: right;
+    top: 10px;
 }
 rect:nth-child(2) {
     fill: aqua;
