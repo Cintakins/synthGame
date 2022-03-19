@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for (i = 0; i < key.length; i++) {
         let dataNote = key[i].getAttribute("data-note");
         tones.push(dataNote);
-    }
+    };
 
 
     // mousedown or click events
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
         key[i].addEventListener("mousedown", function (event) {
             playNote(event, note);
         });
-    }
+    };
 
 
     let play = document.getElementsByClassName("game-button");
