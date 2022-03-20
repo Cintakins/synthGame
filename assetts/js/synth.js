@@ -8,7 +8,7 @@ let sliderVolume;
 let sliderReverb = 0.1;
 const now = Tone.now();
 
-//Effect sliders from NexusUI
+//Effect sliders from NexusUI library
 var volumeSlider = new Nexus.Slider('#slider-effect1', {
     'size': [120, 20],
     'mode': 'absolute',
@@ -17,6 +17,7 @@ var volumeSlider = new Nexus.Slider('#slider-effect1', {
     'step': 1,
     'value': -5,
 });
+
 
 volumeSlider.on('change', function (v) {
     sliderVolume = v;
@@ -153,7 +154,7 @@ function playNote(event, note) {
         if (keyPlayed.classList.contains("white-key")) {
             keyPlayed.style.background = "aqua";
         } else {
-            keyPlayed.style.background = "rgb(218, 96, 223)";
+            keyPlayed.style.background = "rgb(137, 98, 192)";
         }
         synth.triggerAttack(`${note}4`, now);
         keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth));
@@ -203,7 +204,7 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
                 if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
                     document.getElementById(`${currentRandomNote}`).style.background = "whitesmoke";
                 } else {
-                    document.getElementById(`${currentRandomNote}`).style.background = "rgb(122, 43, 226)";
+                    document.getElementById(`${currentRandomNote}`).style.background = "rgb(137, 98, 192)";
                 }
                 alert("Press Play to play again, or have fun with the synthesizer!", 'info');
             }, 2000);
@@ -223,7 +224,7 @@ function stopNote(note, keyPlayed, synth, now) {
     if (keyPlayed.classList.contains("white-key")) {
         keyPlayed.style.background = "whitesmoke";
     } else {
-        keyPlayed.style.background = "rgb(122, 43, 226)";
+        keyPlayed.style.background = "rgb(137, 98, 192)";
     }
     resetRandomNote();
 }
