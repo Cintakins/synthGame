@@ -154,7 +154,7 @@ function playNote(event, note) {
         if (keyPlayed.classList.contains("white-key")) {
             keyPlayed.style.background = "aqua";
         } else {
-            keyPlayed.style.background = "rgb(137, 98, 192)";
+            keyPlayed.style.background = "rgb(218, 96, 223)";
         }
         synth.triggerAttack(`${note}4`, now);
         keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth));
@@ -204,7 +204,8 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
                 if (document.getElementById(`${currentRandomNote}`).classList.contains("white-key")) {
                     document.getElementById(`${currentRandomNote}`).style.background = "whitesmoke";
                 } else {
-                    document.getElementById(`${currentRandomNote}`).style.background = "rgb(137, 98, 192)";
+                    document.getElementById(`${currentRandomNote}`).style.background = "white";
+                    document.getElementById(`${currentRandomNote}`).style.backgroundImage = "radial-gradient(circle, rgba(122, 43, 226, 0.692), rgb(122, 43, 226))";
                 }
                 alert("Press Play to play again, or have fun with the synthesizer!", 'info');
             }, 2000);
@@ -224,7 +225,8 @@ function stopNote(note, keyPlayed, synth, now) {
     if (keyPlayed.classList.contains("white-key")) {
         keyPlayed.style.background = "whitesmoke";
     } else {
-        keyPlayed.style.background = "rgb(137, 98, 192)";
+        keyPlayed.style.background = "white";
+        keyPlayed.style.backgroundImage = "radial-gradient(circle, rgba(122, 43, 226, 0.692), rgb(122, 43, 226))";
     }
     resetRandomNote();
 }
