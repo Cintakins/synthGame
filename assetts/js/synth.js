@@ -86,7 +86,6 @@ function randomNote() {
     var vol = new Tone.Volume(sliderVolume);
     let synth = new Tone.Synth().chain(vol, reverb, Tone.Destination);
 
-    // Tone.start();
     resetRandomNote();
     currentRandomNote = tones[Math.floor((Math.random() * tones.length))];
     synth.triggerAttackRelease(`${currentRandomNote}4`, "8n");
@@ -144,7 +143,6 @@ function playNote(event, note) {
 
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
-    // Tone.start();
 
 
     if (currentRandomNote) {
