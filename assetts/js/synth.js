@@ -18,7 +18,6 @@ var volumeSlider = new Nexus.Slider('#slider-effect1', {
     'value': -5,
 });
 
-
 volumeSlider.on('change', function (v) {
     sliderVolume = v;
 })
@@ -44,14 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
         tones.push(dataNote);
     };
 
-
     // mousedown or click events
     for (i = 0; i < key.length; i++) {
         key[i].addEventListener("mousedown", function (event) {
             playNote(event, note);
         });
     };
-
 
     let play = document.getElementsByClassName("game-button");
     play[0].addEventListener("click", randomNote);
@@ -144,7 +141,6 @@ function playNote(event, note) {
     const keyPlayed = event.target;
     note = keyPlayed.dataset.note;
 
-
     if (currentRandomNote) {
         synth.triggerAttack(`${note}4`, now);
         playGame(currentRandomNote, note, keyPlayed, synth);
@@ -211,11 +207,8 @@ function playGame(currentRandomNote, note, keyPlayed, synth) {
             once: true
         });
     }
-
     keyPlayed.addEventListener("mouseup", () => stopNote(note, keyPlayed, synth, now));
 }
-
-
 
 /** stopNote function stops the tone and reverts keys back to original colour */
 function stopNote(note, keyPlayed, synth, now) {
